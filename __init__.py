@@ -30,7 +30,10 @@ def setup_and_parse(desc, arglist):
     # Initialise parser
     parser = argparse.ArgumentParser(description=desc)
     for flags, kwargs in arglist:
-        parser.add_argument(*flags, **kwargs)
+        if isinstance(flags, str):
+            parser.add_argument(flags, **kwargs)
+        else:
+            parser.add_argument(*flags, **kwargs)
 
     # Parse arguments
     return parser.parse_args()
